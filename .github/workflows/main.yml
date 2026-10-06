@@ -1,0 +1,22 @@
+name: Local runner smoke
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: [self-hosted, linux, x64, local-ci]
+    timeout-minutes: 10
+    steps:
+      - name: Check runner execution
+        shell: bash
+        run: |
+          set -euo pipefail
+          hostname
+          uname -m
+          id
+          test -w "$RUNNER_TEMP"
+          printf 'Runner smoke check passed\n'
